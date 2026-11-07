@@ -1,0 +1,14 @@
+{
+  "name": "@whitekiwi/namecard",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.25.0",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node --check src/app.js && node --test tests/*.test.mjs && node scripts/verify.mjs",
+    "release:pack": "node scripts/release.mjs"
+  },
+  "devDependencies": { "@whitekiwi/tokens": "0.1.1" }
+}
