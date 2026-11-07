@@ -17,7 +17,7 @@ PIP는 npm `@whitekiwi/tokens@0.1.1`을 그대로 복사해 사용한다.
 - native share 지원 시 공유창, 미지원 시 canonical URL 복사
 - 정적 OG1200×630, Twitter Card, canonical, robots, sitemap
 - 자동/밝게/어둡게 테마, 키보드 조작, reduced-motion
-- 포트폴리오와 GitHub 링크: 본인 GitHub 프로필에서 확인한 주소
+- Portfolio·GitHub·LinkedIn·Blog 링크: 본인 GitHub 프로필과 Portfolio 소스에서 확인한 주소
 
 ## 콘텐츠와 분석
 
