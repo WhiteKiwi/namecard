@@ -36,7 +36,7 @@ for(const button of document.querySelectorAll('[data-copy]')) button.addEventLis
   const field=button.dataset.copy;const ok=await copyText(config[field]);toast(ok?(field==='email'?'이메일을 복사했어요':'전화번호를 복사했어요'):'복사하지 못했어요. 연락처를 길게 눌러 복사해 주세요.');if(ok)track('contact_copy',{contact_type:field});
 });
 async function share() {
-  const data={title:'장지훈 · Jihoon Jang',text:'Node.js Developer · Tax Platform Team',url:canonical};
+  const data={title:`${config.name} · ${config.englishName}`,text:`${config.role} · ${config.team}`,url:canonical};
   if(navigator.share){try{await navigator.share(data);track('share',{method:'native',content_type:'namecard'});return;}catch(e){if(e.name==='AbortError')return;}}
   const ok=await copyText(canonical);toast(ok?'명함 링크를 복사했어요':'링크를 복사하지 못했어요. 주소창에서 복사해 주세요.');if(ok)track('share',{method:'copy_link',content_type:'namecard'});
 }

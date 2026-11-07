@@ -2,7 +2,7 @@ export function escapeHtml(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
 }
 export function validateConfig(c) {
-  for (const key of ['name','englishName','role','team','company','phone','email','address','siteUrl','gaMeasurementId']) {
+  for (const key of ['name','givenName','familyName','englishName','role','team','company','phone','email','address','siteUrl','gaMeasurementId']) {
     if (typeof c[key] !== 'string' || /[\r\n\0]/.test(c[key])) throw new Error(`Invalid ${key}`);
   }
   const url = new URL(c.siteUrl);
@@ -18,6 +18,6 @@ export function validateConfig(c) {
 }
 const escapeVcard = s => s.replaceAll('\\','\\\\').replaceAll(';','\\;').replaceAll(',','\\,').replaceAll('\n','\\n');
 export function vcard(c) {
-  const lines = ['BEGIN:VCARD','VERSION:3.0','N:Jang;Jihoon;;;',`FN:${escapeVcard(c.name)} (${escapeVcard(c.englishName)})`,`ORG:${escapeVcard(c.company)};${escapeVcard(c.team)}`,`TITLE:${escapeVcard(c.role)}`,`TEL;TYPE=CELL:+82${c.phone.slice(1)}`,`EMAIL;TYPE=WORK:${c.email}`,`ADR;TYPE=WORK:;;${escapeVcard(c.address)};;;;`,`URL:${c.siteUrl}`,'END:VCARD'];
+  const lines = ['BEGIN:VCARD','VERSION:3.0',`N:${escapeVcard(c.familyName)};${escapeVcard(c.givenName)};;;`,`FN:${escapeVcard(c.name)} (${escapeVcard(c.englishName)})`,`ORG:${escapeVcard(c.company)};${escapeVcard(c.team)}`,`TITLE:${escapeVcard(c.role)}`,`TEL;TYPE=CELL:+82${c.phone.slice(1)}`,`EMAIL;TYPE=WORK:${escapeVcard(c.email)}`,`ADR;TYPE=WORK:;;${escapeVcard(c.address)};;;;`,`URL:${c.siteUrl}`,'END:VCARD'];
   return lines.map(s => { let out = '', line = ''; for (const ch of s) { if (Buffer.byteLength(line + ch) > 74) { out += line + '\r\n'; line = ' '; } line += ch; } return out + line; }).join('\r\n') + '\r\n';
 }

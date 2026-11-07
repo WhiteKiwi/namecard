@@ -1,8 +1,9 @@
 import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
+const config = JSON.parse(await fs.readFile('config.json', 'utf8'));
 const html = await fs.readFile('dist/index.html', 'utf8');
 assert.ok(!html.includes('{{'));
-assert.ok(html.includes('https://namecard.whitekiwi.link/assets/og.png'));
+assert.ok(html.includes(`${config.siteUrl}/assets/og.png`));
 assert.ok(!html.includes('chatgpt.site'));
 for (const [,url] of html.matchAll(/(?:src|href)="([^"#]+)"/g)) {
   if (/^(https?:|mailto:|tel:|\.\/)/.test(url)) continue;
