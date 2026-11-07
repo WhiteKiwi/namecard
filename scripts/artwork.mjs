@@ -9,8 +9,8 @@ const symbol = await data('public/assets/toss-symbol-tight.png');
 const logo = await data('public/assets/toss-income-tight.png');
 const start = '<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1100" viewBox="0 0 900 550"><rect width="900" height="550" fill="#fff"/>';
 const font = 'font-family="Noto Sans CJK KR, sans-serif" fill="#17191c"';
-const front = start+`<image href="${symbol}" x="350" y="175" width="200" height="200"/></svg>`;
-const back = start+`<image href="${logo}" x="580" y="42" width="276" height="60"/><g ${font} font-size="27"><text x="46" y="72" font-weight="700">${esc(c.name)}</text><text x="46" y="110" font-weight="700">${esc(c.englishName)}</text><text x="46" y="148">${esc(c.role)}</text><text x="46" y="186">${esc(c.team)}</text><text x="46" y="273">${esc(c.phone.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1 $2 $3'))}</text><text x="46" y="311">${esc(c.email)}</text></g><g ${font} font-size="20"><text x="46" y="467" font-weight="700">${esc(c.company)}</text><text x="46" y="498">${esc(c.address)}</text></g></svg>`;
+const back = start+`<image href="${symbol}" x="350" y="175" width="200" height="200"/></svg>`;
+const front = start+`<image href="${logo}" x="580" y="42" width="276" height="60"/><g ${font} font-size="27"><text x="46" y="72" font-weight="700">${esc(c.name)}</text><text x="46" y="110" font-weight="700">${esc(c.englishName)}</text><text x="46" y="148">${esc(c.role)}</text><text x="46" y="186">${esc(c.team)}</text><text x="46" y="273">${esc(c.phone.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1 $2 $3'))}</text><text x="46" y="311">${esc(c.email)}</text></g><g ${font} font-size="20"><text x="46" y="467" font-weight="700">${esc(c.company)}</text><text x="46" y="498">${esc(c.address)}</text></g></svg>`;
 for(const [side,svg] of [['front',front],['back',back]]){
   await fs.writeFile(`public/assets/namecard-${side}.svg`,svg);
   await sharp(Buffer.from(svg)).png().toFile(`public/assets/namecard-${side}.png`);
