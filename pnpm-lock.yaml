@@ -1,0 +1,22 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    devDependencies:
+      '@whitekiwi/tokens':
+        specifier: 0.1.1
+        version: 0.1.1
+
+packages:
+
+  '@whitekiwi/tokens@0.1.1':
+    resolution: {integrity: sha512-N7ceSRAVTIXJBEnZ1KCfDfFazo+uY1b0A9588ruBVovoK7kdq/+TXq9JEk3D+EQRePEsfb42QVo21RMTR1aGUw==}
+
+snapshots:
+
+  '@whitekiwi/tokens@0.1.1': {}

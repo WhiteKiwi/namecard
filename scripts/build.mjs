@@ -1,0 +1,25 @@
+import fs from 'node:fs/promises';
+import { createRequire } from 'node:module';
+import { validateConfig, vcard, escapeHtml } from './content.mjs';
+const require = createRequire(import.meta.url);
+const config = validateConfig(JSON.parse(await fs.readFile('config.json', 'utf8')));
+const artwork = JSON.parse(await fs.readFile('artwork.json', 'utf8'));
+for (const key of Object.keys(artwork)) if (config[key] !== artwork[key]) throw new Error(`Regenerate and review card artwork after changing ${key}`);
+// dist is reproducible build output, never the source or authored public assets.
+await fs.rm('dist', { recursive: true, force: true });
+await fs.mkdir('dist', { recursive: true });
+await fs.cp('public', 'dist', { recursive: true });
+for (const name of ['app.js', 'styles.css', 'theme.js']) await fs.copyFile(`src/${name}`, `dist/${name}`);
+await fs.copyFile(require.resolve('@whitekiwi/tokens/theme.css'), 'dist/pip.css');
+let html = await fs.readFile('src/index.html', 'utf8');
+const values = {...config, phoneDisplay: config.phone.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1 $2 $3'), phoneInternational: '+82' + config.phone.slice(1)};
+for (const [key, value] of Object.entries(values)) if (typeof value === 'string') html = html.replaceAll('{{' + key + '}}', escapeHtml(value));
+html = html.replaceAll('{{SITE_URL}}', escapeHtml(config.siteUrl));
+const links = config.links.map((link, i) => `<a class="profile-link" href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer" data-profile="${i + 1}"><span>${escapeHtml(link.label)}</span><span aria-hidden="true">↗</span></a>`).join('\n');
+html = html.replace('{{LINKS}}', links).replace('{{LINKS_HIDDEN}}', links ? '' : 'hidden');
+await fs.writeFile('dist/index.html', html);
+await fs.writeFile('dist/config.js', `window.NAMECARD_CONFIG = ${JSON.stringify(config)};\n`);
+await fs.writeFile('dist/jihoon-jang.vcf', vcard(config));
+await fs.writeFile('dist/robots.txt', `User-agent: *\nAllow: /\nSitemap: ${config.siteUrl}/sitemap.xml\n`);
+await fs.writeFile('dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${escapeHtml(config.siteUrl)}/</loc></url></urlset>\n`);
+console.log(`Built static namecard. GA4: ${config.gaMeasurementId ? 'configured' : 'inactive'}. Links: ${config.links.length}.`);

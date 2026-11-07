@@ -1,0 +1,42 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: whitekiwi-ubuntu
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    env:
+      NODE_USE_ENV_PROXY: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Require release source on main
+        run: git merge-base --is-ancestor HEAD origin/main
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+
+      - uses: pnpm/action-setup@v6
+
+      - run: pnpm install --frozen-lockfile --store-dir /cache/shared/.pnpm --side-effects-cache=false
+
+      - run: pnpm build && pnpm check && pnpm release:pack
+
+      - name: Publish immutable candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: gh release create "$RELEASE_TAG" release/namecard.tar.gz release/manifest.json release/SHA256SUMS --verify-tag --title "$RELEASE_TAG" --notes 'Verified static namecard candidate. Production activation is owned by WhiteKiwi/infra.'
