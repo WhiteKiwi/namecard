@@ -2,13 +2,13 @@ const config = window.NAMECARD_CONFIG;
 const $ = id => document.getElementById(id);
 const canonical = new URL(config.siteUrl).origin + '/';
 let back = false, toastTimer;
-const gaReady = /^G-[A-Z0-9]+$/.test(config.gaMeasurementId);
+const gaReady = location.origin === new URL(canonical).origin && /^G-[A-Z0-9]+$/.test(config.gaMeasurementId);
 if (gaReady) {
   window.dataLayer = window.dataLayer || [];
   window.gtag = function(){ window.dataLayer.push(arguments); };
   gtag('js',new Date());
   // Keep query strings, referrer parameters and contact values out of page metadata.
-  gtag('config',config.gaMeasurementId,{send_page_view:false,allow_google_signals:false,allow_ad_personalization_signals:false});
+  gtag('config',config.gaMeasurementId,{send_page_view:false,allow_google_signals:false,allow_ad_personalization_signals:false,page_location:canonical,page_title:'Digital namecard',page_referrer:''});
   gtag('event','page_view',{page_location:canonical,page_title:'Digital namecard',page_referrer:''});
   const script=document.createElement('script');script.async=true;script.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(config.gaMeasurementId);document.head.append(script);
 }
