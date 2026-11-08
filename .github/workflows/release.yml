@@ -2,10 +2,16 @@ name: Release
 on:
   push:
     tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing immutable vVERSION tag to publish
+        required: true
+        type: string
 permissions:
   contents: read
 concurrency:
-  group: release-${{ github.ref }}
+  group: release-${{ inputs.tag || github.ref_name }}
   cancel-in-progress: false
 jobs:
   publish:
@@ -15,14 +21,18 @@ jobs:
       contents: write
     env:
       NODE_USE_ENV_PROXY: '1'
+      RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
     steps:
       - uses: actions/checkout@v7
         with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && format('refs/tags/{0}', inputs.tag) || github.ref }}
           persist-credentials: false
           fetch-depth: 0
 
       - name: Require release source on main
-        run: git merge-base --is-ancestor HEAD origin/main
+        run: |
+          git merge-base --is-ancestor HEAD origin/main
+          node -e 'const v=require("./package.json").version; if(process.env.RELEASE_TAG!=="v"+v) throw Error("Release tag/version mismatch")'
 
       - uses: actions/setup-node@v7
         with:
@@ -36,7 +46,20 @@ jobs:
       - run: pnpm build && pnpm check && pnpm release:pack
 
       - name: Publish immutable candidate
-        env:
-          GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ github.ref_name }}
-        run: gh release create "$RELEASE_TAG" release/namecard.tar.gz release/manifest.json release/SHA256SUMS --verify-tag --title "$RELEASE_TAG" --notes 'Verified static namecard candidate. Production activation is owned by WhiteKiwi/infra.'
+        uses: actions/github-script@373c709c69115d41ff229c7e5df9f8788daa9553 # v9
+        with:
+          script: |
+            const fs = require('node:fs');
+            const tag = process.env.RELEASE_TAG;
+            // Verify the tag exists; never synthesize a release from a branch.
+            await github.rest.git.getRef({...context.repo, ref: `tags/${tag}`});
+            const {data: release} = await github.rest.repos.createRelease({
+              ...context.repo, tag_name: tag, name: tag,
+              body: 'Verified static namecard candidate. Production activation is owned by WhiteKiwi/infra.'
+            });
+            for (const name of ['namecard.tar.gz', 'manifest.json', 'SHA256SUMS']) {
+              await github.rest.repos.uploadReleaseAsset({
+                ...context.repo, release_id: release.id, name,
+                data: fs.readFileSync(`release/${name}`)
+              });
+            }

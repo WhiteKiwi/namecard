@@ -51,6 +51,9 @@ PR/main은 `whitekiwi-ubuntu`에서 frozen install, 구문·콘텐츠 검사와 
 패키지 저장소는 `/cache/shared/.pnpm`을 직접 공유한다. node_modules는 job 전용이며
 GitHub dependency cache를 사용하지 않는다. `v*` 태그는 main에 포함된 커밋에서만
 검증 후 private GitHub Release에 tar·SHA256SUMS·파일별 manifest를 발행한다.
+기존 태그의 최초 게시가 실패하면 Release 수동 실행에 그 태그를 지정한다.
+이미 생성된 릴리스는 덮어쓰지 않으므로 부분 업로드는 자산을 먼저 대조한다.
+게시 단계는 GitHub API를 사용해 러너의 gh 설치에 의존하지 않는다.
 이는 소스/산출물 일관성 증거이며 암호학적 builder attestation은 아니다.
 
 실서비스 활성화는 [infra Namecard 런북](https://github.com/WhiteKiwi/infra/tree/main/services/namecard)을 따른다.
