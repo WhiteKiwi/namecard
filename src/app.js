@@ -6,6 +6,8 @@ const gaReady = location.origin === new URL(canonical).origin && /^G-[A-Z0-9]+$/
 if (gaReady) {
   window.dataLayer = window.dataLayer || [];
   window.gtag = function(){ window.dataLayer.push(arguments); };
+  // Apply before tag initialization, including any automatically configured destination.
+  gtag('set',{send_page_view:false,page_location:canonical,page_title:'Digital namecard',page_referrer:'',allow_google_signals:false,allow_ad_personalization_signals:false});
   gtag('js',new Date());
   // Keep query strings, referrer parameters and contact values out of page metadata.
   gtag('config',config.gaMeasurementId,{send_page_view:false,allow_google_signals:false,allow_ad_personalization_signals:false,page_location:canonical,page_title:'Digital namecard',page_referrer:''});
