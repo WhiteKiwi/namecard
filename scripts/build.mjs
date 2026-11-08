@@ -11,6 +11,7 @@ await fs.mkdir('dist', { recursive: true });
 await fs.cp('public', 'dist', { recursive: true });
 for (const name of ['app.js', 'styles.css', 'theme.js']) await fs.copyFile(`src/${name}`, `dist/${name}`);
 await fs.copyFile(require.resolve('@whitekiwi/tokens/theme.css'), 'dist/pip.css');
+await fs.copyFile(require.resolve('@whitekiwi/ui/styles.css'), 'dist/pip-ui.css');
 let html = await fs.readFile('src/index.html', 'utf8');
 const values = {...config, phoneDisplay: config.phone.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1 $2 $3'), phoneInternational: '+82' + config.phone.slice(1)};
 for (const [key, value] of Object.entries(values)) if (typeof value === 'string') html = html.replaceAll('{{' + key + '}}', escapeHtml(value));

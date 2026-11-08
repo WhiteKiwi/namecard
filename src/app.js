@@ -19,11 +19,11 @@ function toast(message) { clearTimeout(toastTimer);$('toast').textContent=messag
 function setSide(value) {
   back=value;$('large-dialog').classList.toggle('detail-back',back);$('flip-card').classList.toggle('is-back',back);
   $('flip-card').setAttribute('aria-label',back?'명함 앞면 보기':'명함 뒷면 보기');
-  $('front').setAttribute('aria-pressed',String(!back));$('back').setAttribute('aria-pressed',String(back));
+  $('front').checked=!back;$('back').checked=back;
   document.querySelector('.front').setAttribute('aria-hidden',String(back));document.querySelector('.back').setAttribute('aria-hidden',String(!back));
   $('large-card').src=`assets/namecard-${back?'back':'front'}.png`;$('large-card').alt=back?'명함 뒷면':'명함 앞면';track('card_view',{card_side:back?'back':'front'});
 }
-$('flip-card').addEventListener('click',()=>setSide(!back));$('front').addEventListener('click',()=>setSide(false));$('back').addEventListener('click',()=>setSide(true));$('large-flip').addEventListener('click',()=>setSide(!back));
+$('flip-card').addEventListener('click',()=>setSide(!back));$('front').addEventListener('change',()=>setSide(false));$('back').addEventListener('change',()=>setSide(true));$('large-flip').addEventListener('click',()=>setSide(!back));
 $('enlarge').addEventListener('click',()=>{$('large-dialog').showModal();track('card_enlarge');});
 $('download-open').addEventListener('click',()=>$('download-dialog').showModal());
 for(const b of document.querySelectorAll('[data-close]')) b.addEventListener('click',()=>$(b.dataset.close).close());
@@ -48,10 +48,10 @@ for (const link of document.querySelectorAll('[data-profile]')) link.addEventLis
 function updateTheme(choice) {
   if (choice === 'auto') delete document.documentElement.dataset.theme;
   else document.documentElement.dataset.theme = choice;
-  for (const button of document.querySelectorAll('[data-theme-choice]')) button.setAttribute('aria-pressed', String(button.dataset.themeChoice === choice));
+  for (const button of document.querySelectorAll('[data-theme-choice]')) button.checked = button.dataset.themeChoice === choice;
   try { localStorage.setItem('namecard-theme', choice); } catch {}
 }
-for (const button of document.querySelectorAll('[data-theme-choice]')) button.addEventListener('click', () => updateTheme(button.dataset.themeChoice));
+for (const button of document.querySelectorAll('[data-theme-choice]')) button.addEventListener('change', () => updateTheme(button.dataset.themeChoice));
 updateTheme(document.documentElement.dataset.theme || 'auto');
 $('zoom-toggle').addEventListener('click', () => {
   const zoomed = $('large-dialog').classList.toggle('zoomed');

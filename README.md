@@ -10,7 +10,7 @@ PIP의 따뜻한 중립 배경, 큰 타이포그래피, 키위색 주 행동을 
 
 Node24, pnpm11.25.0. `pnpm install --frozen-lockfile`, `pnpm build`, `pnpm check`.
 `dist/`를 정적 서버로 제공한다. 서버·DB·브라우저 프레임워크는 필요 없다.
-PIP는 npm `@whitekiwi/tokens@0.1.1`을 그대로 복사해 사용한다.
+PIP는 npm `@whitekiwi/tokens@0.2.1`과 `@whitekiwi/ui@0.2.1`의 CSS export를 빌드 시 그대로 복사한다. React JavaScript를 브라우저에 로드하지 않는다. 테마·명함 면 선택은 PIP의 native radio 패턴으로 상태·포커스 스타일과 키보드 선택을 공유한다.
 
 - 명함 뒤집기, 앞/뒤 선택, 확대, PNG 다운로드
 - vCard3.0 연락처 저장, 전화/메일 실행, 연락처 복사
