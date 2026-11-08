@@ -30,14 +30,15 @@ jobs:
           fetch-depth: 0
 
       - name: Require release source on main
-        run: |
-          git merge-base --is-ancestor HEAD origin/main
-          node -e 'const v=require("./package.json").version; if(process.env.RELEASE_TAG!=="v"+v) throw Error("Release tag/version mismatch")'
+        run: git merge-base --is-ancestor HEAD origin/main
 
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
           package-manager-cache: false
+
+      - name: Require matching package version
+        run: node -e 'const v=require("./package.json").version; if(process.env.RELEASE_TAG!=="v"+v) throw Error("Release tag/version mismatch")'
 
       - uses: pnpm/action-setup@v6
 
