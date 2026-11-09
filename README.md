@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="https://github.com/WhiteKiwi/namecard/actions/workflows/ci.yml"><img src="https://github.com/WhiteKiwi/namecard/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://github.com/WhiteKiwi/namecard/releases"><img src="https://img.shields.io/github/v/release/WhiteKiwi/namecard?color=373d2f" alt="Latest release"></a>
+  <a href="https://github.com/WhiteKiwi/namecard/releases"><img src="https://img.shields.io/badge/releases-GitHub-373d2f" alt="GitHub releases"></a>
   <a href="https://design.whitekiwi.link"><img src="https://img.shields.io/badge/design-PIP-c6ff4a?labelColor=171b14" alt="Built with PIP"></a>
 </p>
 
