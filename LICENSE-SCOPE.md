@@ -6,7 +6,8 @@ licensed under the [MIT License](LICENSE), except for the content listed below.
 The MIT grant does **not** cover:
 
 - Personal contact information and company details in `config.json`,
-  `artwork.json`, generated vCards, HTML or screenshots.
+  `artwork.json` and all generated outputs, including `dist/config.js`,
+  vCards, HTML and screenshots.
 - Card artwork, logos, icons and other images in `public/assets/` and
   `docs/images/`, including derived Open Graph and favicon images.
 - Toss names, logos, trademarks and other third-party assets.
