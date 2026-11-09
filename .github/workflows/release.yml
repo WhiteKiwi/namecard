@@ -54,7 +54,7 @@ jobs:
         run: pnpm release:pack
 
       - name: Transfer candidate to publisher
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: release-candidate
           path: |
@@ -75,7 +75,7 @@ jobs:
       RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
     steps:
       # No checkout or dependency scripts in the job holding the write token.
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@v8
         with:
           name: release-candidate
           path: release
