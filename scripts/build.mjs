@@ -9,6 +9,8 @@ for (const key of Object.keys(artwork)) if (config[key] !== artwork[key]) throw 
 await fs.rm('dist', { recursive: true, force: true });
 await fs.mkdir('dist', { recursive: true });
 await fs.cp('public', 'dist', { recursive: true });
+await fs.copyFile('LICENSE', 'dist/NAMECARD-LICENSE.txt');
+await fs.copyFile('LICENSE-SCOPE.md', 'dist/NAMECARD-LICENSE-SCOPE.txt');
 for (const name of ['app.js', 'styles.css', 'theme.js']) await fs.copyFile(`src/${name}`, `dist/${name}`);
 await fs.copyFile(require.resolve('@whitekiwi/tokens/theme.css'), 'dist/pip.css');
 await fs.copyFile(require.resolve('@whitekiwi/ui/styles.css'), 'dist/pip-ui.css');
