@@ -12,10 +12,8 @@ Node.js 24와 pnpm 11.25.0으로 설치, 빌드, 검사를 순차 실행합니�
 - frozen install과 검사는 캐시 적중 여부와 관계없이 실행합니다. 테스트 동시성은 1입니다.
 - 액션은 major 태그, 앱 의존성은 lockfile과 정확한 패키지 버전으로 관리합니다.
 
-공개 전환을 준비하는 비공개 상태에서는 기존 Ubuntu ARC와 직접 공유 pnpm store를 유지합니다.
-`runs-on`과 캐시 설정은 실제 repository visibility에 따라 선택하며, 공개 상태에서는
-self-hosted 경로를 선택하지 않습니다. 공개 직전 별도 infra 절차로 ARC 등록과 App 접근을 해제합니다.
-private CI 통과는 공개 GitHub-hosted 실행 검증을 대신하지 않습니다.
+공개 전환 시 내부 ARC 등록과 Kiwi ARC App 접근을 해제했습니다.
+모든 CI·릴리스 job은 `ubuntu-latest`를 사용하며 내부 러너와 공유 캐시 경로를 포함하지 않습니다.
 
 일반 CI job에는 소유자·fork·bot·Draft 조건으로 검증을 생략하는 `if`를 두지 않습니다.
 외부 기여 실행 승인과 저장소 접근은 GitHub 설정에서 관리합니다.

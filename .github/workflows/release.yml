@@ -15,11 +15,9 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build:
-    # Preserve private CI policy until the owner approves public visibility.
-    runs-on: ${{ github.event.repository.private && 'whitekiwi-ubuntu' || 'ubuntu-latest' }}
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      NODE_USE_ENV_PROXY: '1'
       RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
     steps:
       - uses: actions/checkout@v7
@@ -41,15 +39,10 @@ jobs:
 
       - uses: pnpm/action-setup@v6
         with:
-          cache: ${{ !github.event.repository.private }}
+          cache: true
 
-      - name: Install locked dependencies (public)
-        if: github.event.repository.private == false
+      - name: Install locked dependencies
         run: pnpm install --frozen-lockfile --side-effects-cache=false
-
-      - name: Install locked dependencies (private transition)
-        if: github.event.repository.private
-        run: pnpm install --frozen-lockfile --store-dir /cache/shared/.pnpm --side-effects-cache=false
 
       - name: Build static site
         run: pnpm build
@@ -74,13 +67,11 @@ jobs:
 
   publish:
     needs: build
-    # Preserve private CI policy until the owner approves public visibility.
-    runs-on: ${{ github.event.repository.private && 'whitekiwi-ubuntu' || 'ubuntu-latest' }}
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
       contents: write
     env:
-      NODE_USE_ENV_PROXY: '1'
       RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
     steps:
       # No checkout or dependency scripts in the job holding the write token.
