@@ -15,5 +15,6 @@
   "devDependencies": {
     "@whitekiwi/tokens": "0.2.1",
     "@whitekiwi/ui": "0.2.1"
-  }
+  },
+  "license": "MIT"
 }

@@ -103,9 +103,10 @@ URL query와 referrer를 넣지 않습니다. 분석을 끄려면 `gaMeasurement
 ## 출처와 사용 범위
 
 이 저장소는 개인 명함 사이트입니다. 연락처·회사명·도안을 범용 예제로 간주하지 마세요.
-앱 자체에는 아직 오픈소스 라이선스를 부여하지 않았습니다.
+앱 코드·빌드 스크립트·테스트·문서는 [MIT](LICENSE)로 공개합니다.
+개인 연락처·회사 정보·명함 이미지·상표는 이 허가에서 제외합니다. [적용 범위](LICENSE-SCOPE.md)를 확인하세요.
 PIP의 MIT 고지는 [PIP-LICENSE.txt](public/PIP-LICENSE.txt)에 보존합니다.
-Toss 로고·상표와 명함 자산은 별도 권리 범위이며, PIP의 MIT 라이선스가 적용되지 않습니다.
+Toss 로고·상표와 명함 자산은 별도 권리 범위이며, 앱과 PIP의 MIT 라이선스가 적용되지 않습니다.
 
 [PIP](https://github.com/WhiteKiwi/kiwi-design-system) ·
 [Toss 브랜드 리소스와 사용 규정](https://brand.toss.im/) ·
