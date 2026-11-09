@@ -1,63 +1,112 @@
-# Namecard
+<h1 align="center">Namecard</h1>
 
-장지훈의 디지털 명함. https://namecard.whitekiwi.link
+<p align="center">
+  <strong>A small card. A new connection.</strong><br>
+  한 장의 명함에서, 다음 만남까지. 장지훈의 개인 디지털 명함.
+</p>
 
-PIP의 따뜻한 중립 배경, 큰 타이포그래피, 키위색 주 행동을 사용한다.
-명함 도안은 제공된 Toss 명함의 앞·뒷면을 재구성했으며 사이트 UI와 구분한다.
-앞면은 이름·연락처, 뒷면은 파란 토스 심볼이다. 처음 열면 앞면을 표시한다.
+<p align="center">
+  <a href="https://namecard.whitekiwi.link">명함 열기 ↗</a> ·
+  <a href="#직접-실행하기">직접 실행하기</a> ·
+  <a href="docs/DEVELOPMENT.md">개발 안내</a> ·
+  <a href="docs/CI-CD.md">CI · 릴리스</a>
+</p>
 
-## 개발
+<p align="center">
+  <a href="https://github.com/WhiteKiwi/namecard/actions/workflows/ci.yml"><img src="https://github.com/WhiteKiwi/namecard/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/WhiteKiwi/namecard/releases"><img src="https://img.shields.io/github/v/release/WhiteKiwi/namecard?color=373d2f" alt="Latest release"></a>
+  <a href="https://design.whitekiwi.link"><img src="https://img.shields.io/badge/design-PIP-c6ff4a?labelColor=171b14" alt="Built with PIP"></a>
+</p>
 
-Node24, pnpm11.25.0. `pnpm install --frozen-lockfile`, `pnpm build`, `pnpm check`.
-`dist/`를 정적 서버로 제공한다. 서버·DB·브라우저 프레임워크는 필요 없다.
-PIP는 npm `@whitekiwi/tokens@0.2.1`과 `@whitekiwi/ui@0.2.1`의 CSS export를 빌드 시 그대로 복사한다. React JavaScript를 브라우저에 로드하지 않는다. 테마·명함 면 선택은 PIP의 native radio 패턴으로 상태·포커스 스타일과 키보드 선택을 공유한다.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/desktop-dark.png">
+  <img src="docs/images/desktop-light.png" alt="Namecard 실제 데스크톱 화면. 이름과 실물 명함 도안, 앞뒤 전환, 연락처 저장과 공유 버튼." width="100%">
+</picture>
 
-- 명함 뒤집기, 앞/뒤 선택, 확대, PNG 다운로드
-- vCard3.0 연락처 저장, 전화/메일 실행, 연락처 복사
-- native share 지원 시 공유창, 미지원 시 canonical URL 복사
-- 정적 OG1200×630, Twitter Card, canonical, robots, sitemap
-- 자동/밝게/어둡게 테마, 키보드 조작, reduced-motion
-- Portfolio·GitHub·LinkedIn·Blog 링크: 본인 GitHub 프로필과 Portfolio 소스에서 확인한 주소
+## 명함이 이어주는 것
+
+실물 명함의 앞·뒷면을 웹에서 보고, 필요한 정보를 바로 저장하거나 공유합니다.
+따뜻한 여백과 선명한 타이포그래피, 키위색 행동 버튼은 [PIP](https://design.whitekiwi.link)의 시각 언어를 따릅니다.
+
+| 보기 | 저장하기 | 연결하기 |
+| --- | --- | --- |
+| 명함 앞·뒷면 전환과 확대 | 앞·뒷면 고해상도 PNG | 전화·이메일과 항목별 복사 |
+| 자동 · 밝게 · 어둡게 테마 | vCard 3.0 연락처 | 기기 공유창 또는 링크 복사 |
+| 반응형 화면과 키보드 조작 | 정적 OG · Twitter 미리보기 | Portfolio · GitHub · LinkedIn · Blog |
+
+<details>
+<summary><strong>작은 화면에서도, 같은 명함</strong></summary>
+
+<p align="center">
+  <img src="docs/images/mobile-light.png" alt="390px 모바일 화면의 이름, 명함과 연락처 저장 버튼" width="280">
+</p>
+
+데스크톱·모바일 이미지는 이 저장소를 로컬에서 빌드해 촬영한 실제 화면입니다.
+명함 이미지는 제공된 실물 사진을 바탕으로 재구성했으며, 인쇄 원본의 서체·치수·종이 질감과 완전히 같지는 않습니다.
+
+</details>
+
+## 직접 실행하기
+
+**Node.js 24**, **pnpm 11.25.0**을 사용합니다. 별도의 서버 애플리케이션이나 DB는 필요하지 않습니다.
+
+```sh
+git clone https://github.com/WhiteKiwi/namecard.git
+cd namecard
+pnpm install --frozen-lockfile
+pnpm build
+pnpm check
+```
+
+빌드 결과는 `dist/`에 생성됩니다. Python 3이 있다면 로컬에서 바로 열 수 있습니다.
+
+```sh
+python3 -m http.server 4173 --bind 127.0.0.1 --directory dist
+# http://127.0.0.1:4173
+```
+
+소스를 고친 뒤 `pnpm build`를 다시 실행하고 새로고침합니다.
+로컬 주소에서는 GA4를 로드하지 않습니다.
+
+## 작고 단순한 구조
+
+```text
+config.json        연락처 · 프로필 링크 · 공개 URL · 분석 설정
+artwork.json       검토한 명함 도안의 콘텐츠 기준
+src/               정적 HTML · CSS · 브라우저 JavaScript
+public/            명함 SVG/PNG · 공유 이미지 · 라이선스 고지
+scripts/           빌드 · 콘텐츠 검증 · 릴리스 패키징
+tests/             입력 검증 · vCard 회귀 테스트
+```
+
+브라우저에는 HTML/CSS/JavaScript와 PIP의 CSS만 전달합니다.
+`@whitekiwi/tokens`와 `@whitekiwi/ui`는 같은 **0.2.1** 버전의 CSS export를 사용하며 React JavaScript를 로드하지 않습니다.
+테마 저장, 명함 상태, 연락처와 분석 이벤트는 이 앱에서 관리합니다.
 
 ## 콘텐츠와 분석
 
-`config.json`이 연락처·링크·GA4 설정을 소유한다. 카드에 인쇄된 정보가 바뀌면
-`artwork.json` 및 `public/assets/namecard-*`도 다시 검토해야 한다.
-빌드는 도안과 설정의 불일치를 거부한다. SVG/PNG는 사진을 바탕으로 재구성했으며
-실제 인쇄 원본의 정확한 서체·물리 치수·종이 질감까지 동일함을 보장하지 않는다.
+`config.json`이 연락처와 링크의 기준입니다. 명함에 인쇄된 정보는 이미지에도 있으므로
+설정과 도안을 함께 갱신해야 합니다. 빌드는 `artwork.json`과 설정이 다르면 실패합니다.
+[수정할 파일과 도안 생성 방법](docs/DEVELOPMENT.md#콘텐츠-수정)을 먼저 확인하세요.
 
-GA4는 whitekiwi 계정의 Namecard 속성(`563128813`), Namecard Web 스트림
-(`16295156391`), 측정 ID `G-WDG19LV444`를 사용한다. 운영 origin에서만 페이지 조회,
-명함 조회/확대/다운로드, 연락처 저장/복사, 공유, 주요 링크 클릭을 전송한다.
-전화/메일 값·URL query·referrer를 보내지 않으며 자동 이벤트에도 정규화한 페이지 정보를 적용한다.
-스트림의 향상된 측정은 꺼서 자동 외부 링크/파일 수집과 수동 이벤트 중복을 막는다.
-실시간 수신 검증 결과는 infra 운영 수락 기록에서 관리한다.
+GA4는 설정한 운영 origin에서만 동작합니다. 앱 이벤트에는 전화번호·이메일 값,
+URL query와 referrer를 넣지 않습니다. 분석을 끄려면 `gaMeasurementId`를 빈 문자열로 설정합니다.
+[이벤트 범위와 GA 설정](docs/DEVELOPMENT.md#분석-설정)에 수집 경계를 정리했습니다.
 
-## 디자인 자료
+## 검증에서 릴리스까지
 
-- PIP: https://design.whitekiwi.link / https://github.com/WhiteKiwi/kiwi-design-system
-- 공식 Toss 브랜드: https://brand.toss.im/
-- 심볼: https://static.toss.im/assets/homepage/brand/Toss_Symbol.zip
-- Toss Income: https://static.toss.im/assets/homepage/brand/2026-CI/TossIncome.zip
+공개 저장소의 PR과 `main`은 GitHub-hosted Ubuntu에서 frozen install → build → check를 실행합니다.
+`v*` 태그는 `main`에 포함된 소스와 패키지 버전이 일치할 때만 검증된 정적 파일,
+파일별 manifest, SHA-256 체크섬을 GitHub Release에 게시합니다.
+운영 사이트 활성화는 별도 단계입니다. [CI와 릴리스 안내](docs/CI-CD.md)에서 확인하세요.
 
-원본 사진은 배포하지 않는다. `scripts/artwork.mjs`는 선택적 아트워크 편집 도구다.
-Sharp0.34 및 Noto Sans CJK KR이 설치된 편집 환경에서 실행하고 PNG를 눈으로 확인해
-커밋한다. CI는 검토된 아트워크를 그대로 사용하므로 시스템 글꼴에 의존하지 않는다.
-PIP 토큰은 MIT 라이선스이며 배포물에 해당 고지를 포함한다. Toss 상표는 해당 권리자에게 귀속한다.
+## 출처와 사용 범위
 
-## CI와 릴리스·배포
+이 저장소는 개인 명함 사이트입니다. 연락처·회사명·도안을 범용 예제로 간주하지 마세요.
+앱 자체에는 아직 오픈소스 라이선스를 부여하지 않았습니다.
+PIP의 MIT 고지는 [PIP-LICENSE.txt](public/PIP-LICENSE.txt)에 보존합니다.
+Toss 로고·상표와 명함 자산은 별도 권리 범위이며, PIP의 MIT 라이선스가 적용되지 않습니다.
 
-PR/main은 `whitekiwi-ubuntu`에서 frozen install, 구문·콘텐츠 검사와 빌드를 실행한다.
-패키지 저장소는 `/cache/shared/.pnpm`을 직접 공유한다. node_modules는 job 전용이며
-GitHub dependency cache를 사용하지 않는다. `v*` 태그는 main에 포함된 커밋에서만
-검증 후 private GitHub Release에 tar·SHA256SUMS·파일별 manifest를 발행한다.
-기존 태그의 최초 게시가 실패하면 Release 수동 실행에 그 태그를 지정한다.
-이미 생성된 릴리스는 덮어쓰지 않으므로 부분 업로드는 자산을 먼저 대조한다.
-게시 단계는 GitHub API를 사용해 러너의 gh 설치에 의존하지 않는다.
-이는 소스/산출물 일관성 증거이며 암호학적 builder attestation은 아니다.
-
-실서비스 활성화는 [infra Namecard 런북](https://github.com/WhiteKiwi/infra/tree/main/services/namecard)을 따른다.
-릴리스와 소스를 대조하고 공용 static-hosting의 staging sibling에 안전하게 추출한 뒤
-고정 publisher로 원자 교체한다. CI에는 운영 credential이나 Kubernetes 접근권한이 없다.
-이전 public tree는 같은 staging 경로에 남는다. 재실행하면 rollback이므로 무작정 재시도하지 않는다.
-DNS/TLS/ingress와 서버 자원은 infra가 소유한다.
+[PIP](https://github.com/WhiteKiwi/kiwi-design-system) ·
+[Toss 브랜드 리소스와 사용 규정](https://brand.toss.im/) ·
+[자산별 출처](docs/ASSETS.md) · [보안 제보](SECURITY.md)
