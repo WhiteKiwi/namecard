@@ -45,14 +45,6 @@ async function share() {
 $('share-top').addEventListener('click',share);$('share-main').addEventListener('click',share);
 for(const link of document.querySelectorAll('[data-event]'))link.addEventListener('click',()=>track(link.dataset.event,link.dataset.side?{card_side:link.dataset.side}:{}));
 for (const link of document.querySelectorAll('[data-profile]')) link.addEventListener('click', () => track('profile_link_click', {link_index:Number(link.dataset.profile)}));
-function updateTheme(choice) {
-  if (choice === 'auto') delete document.documentElement.dataset.theme;
-  else document.documentElement.dataset.theme = choice;
-  for (const button of document.querySelectorAll('[data-theme-choice]')) button.checked = button.dataset.themeChoice === choice;
-  try { localStorage.setItem('namecard-theme', choice); } catch {}
-}
-for (const button of document.querySelectorAll('[data-theme-choice]')) button.addEventListener('change', () => updateTheme(button.dataset.themeChoice));
-updateTheme(document.documentElement.dataset.theme || 'auto');
 $('zoom-toggle').addEventListener('click', () => {
   const zoomed = $('large-dialog').classList.toggle('zoomed');
   $('zoom-toggle').setAttribute('aria-pressed', String(zoomed));
