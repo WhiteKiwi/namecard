@@ -13,7 +13,7 @@ await fs.copyFile('LICENSE', 'dist/NAMECARD-LICENSE.txt');
 const licenseScope = (await fs.readFile('LICENSE-SCOPE.md', 'utf8'))
   .replace('(LICENSE)', '(NAMECARD-LICENSE.txt)')
   .replace('(docs/ASSETS.md)', '(https://github.com/WhiteKiwi/namecard/blob/main/docs/ASSETS.md)')
-  .replace('`public/PIP-LICENSE.txt`', '`PIP-LICENSE.txt`');
+  .replaceAll('`public/PIP-', '`PIP-');
 await fs.writeFile('dist/NAMECARD-LICENSE-SCOPE.txt', licenseScope);
 for (const name of ['app.js', 'styles.css']) await fs.copyFile(`src/${name}`, `dist/${name}`);
 await fs.copyFile(require.resolve('@whitekiwi/tokens/theme.css'), 'dist/pip.css');

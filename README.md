@@ -31,7 +31,7 @@
 | 보기 | 저장하기 | 연결하기 |
 | --- | --- | --- |
 | 명함 앞·뒷면 전환과 확대 | 앞·뒷면 고해상도 PNG | 전화·이메일과 항목별 복사 |
-| 자동 · 밝게 · 어둡게 테마 | vCard 3.0 연락처 | 기기 공유창 또는 링크 복사 |
+| 시스템 연동 · 밝게/어둡게 전환 | vCard 3.0 연락처 | 기기 공유창 또는 링크 복사 |
 | 반응형 화면과 키보드 조작 | 정적 OG · Twitter 미리보기 | Portfolio · GitHub · LinkedIn · Blog |
 
 <details>
@@ -80,7 +80,7 @@ tests/             입력 검증 · vCard 회귀 테스트
 ```
 
 브라우저에는 HTML/CSS/JavaScript와 PIP의 CSS만 전달합니다.
-`@whitekiwi/tokens`와 `@whitekiwi/ui`는 같은 **0.2.3** 버전의 CSS export를 사용하며 React JavaScript를 로드하지 않습니다. 화면 테마는 ThemeControl native markup과 `pip-theme-bootstrap`을 사용합니다.
+`@whitekiwi/tokens`와 `@whitekiwi/ui`는 같은 **0.2.4** 버전의 CSS export를 사용하며 React JavaScript를 로드하지 않습니다. 화면 테마는 ThemeControl 기본 아이콘 버튼의 native markup과 `pip-theme-bootstrap`을 사용합니다.
 테마 저장, 명함 상태, 연락처와 분석 이벤트는 이 앱에서 관리합니다.
 
 ## 콘텐츠와 분석

@@ -1,5 +1,11 @@
 import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
+import { pipThemeBootstrap, pipThemeControlScript, themeControlMarkup } from '@whitekiwi/ui/theme';
+const pkg = JSON.parse(await fs.readFile('package.json', 'utf8'));
+for (const name of ['tokens', 'ui']) {
+  assert.equal(pkg.devDependencies[`@whitekiwi/${name}`], '0.2.4');
+  assert.equal(JSON.parse(await fs.readFile(`node_modules/@whitekiwi/${name}/package.json`, 'utf8')).version, '0.2.4');
+}
 const config = JSON.parse(await fs.readFile('config.json', 'utf8'));
 const html = await fs.readFile('dist/index.html', 'utf8');
 assert.ok(!html.includes('{{'));
@@ -12,7 +18,12 @@ assert.ok(html.includes('rel="icon" href="assets/favicon.png"'));
 assert.ok(html.includes('rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180"'));
 assert.ok(html.includes('id="pip-theme-bootstrap"'));
 assert.ok(html.indexOf('id="pip-theme-bootstrap"') < html.indexOf('href="pip.css"'));
-assert.ok(html.includes('class="kiwi-segmented kiwi-theme"'));
+assert.ok(html.includes('class="kiwi-theme kiwi-theme--icon"'));
+assert.ok(html.includes(themeControlMarkup({ id: 'namecard-theme' })));
+assert.equal(html.match(/<script id="pip-theme-bootstrap">([\s\S]*?)<\/script>/)[1].trim(), pipThemeBootstrap('namecard-theme'));
+assert.ok(html.includes(pipThemeControlScript('namecard-theme')));
+assert.equal(html.includes('class="kiwi-segmented kiwi-theme"'), false);
+assert.ok(html.includes('name="card-side"'));
 assert.ok(html.includes('namecard-theme'));
 assert.equal(html.includes('theme.js'), false);
 assert.equal(html.includes('data-theme="auto"'), false);

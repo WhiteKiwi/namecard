@@ -1,5 +1,5 @@
 # Exact owner-reviewed PIP release; CI tarball integrity and npm provenance verified.
 # Keep the default age policy for every other package/version.
 minimumReleaseAgeExclude:
-  - '@whitekiwi/tokens@0.2.3'
-  - '@whitekiwi/ui@0.2.3'
+  - '@whitekiwi/tokens@0.2.4'
+  - '@whitekiwi/ui@0.2.4'
