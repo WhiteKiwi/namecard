@@ -9,12 +9,12 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check": "node --check src/app.js && node --check src/theme.js && node --test --test-concurrency=1 tests/*.test.mjs && node scripts/verify.mjs",
+    "check": "node --check src/app.js && node --test --test-concurrency=1 tests/*.test.mjs && node scripts/verify.mjs",
     "release:pack": "node scripts/release.mjs"
   },
   "devDependencies": {
-    "@whitekiwi/tokens": "0.2.1",
-    "@whitekiwi/ui": "0.2.1"
+    "@whitekiwi/tokens": "0.2.3",
+    "@whitekiwi/ui": "0.2.3"
   },
   "license": "MIT"
 }

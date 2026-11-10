@@ -5,17 +5,52 @@
   <title>{{name}} · {{englishName}} — 명함</title>
   <meta name="description" content="{{name}} · {{role}} · {{team}}. 명함을 보고 연락처를 저장하거나 공유하세요.">
   <link rel="canonical" href="{{SITE_URL}}/">
-  <meta property="og:type" content="profile"><meta property="og:locale" content="ko_KR">
+  <meta property="og:type" content="profile"><meta property="og:site_name" content="WHITEKIWI"><meta property="og:locale" content="ko_KR">
   <meta property="og:title" content="{{name}} · {{englishName}}"><meta property="og:description" content="{{role}} · {{team}} — 연락처와 명함을 한곳에서.">
   <meta property="og:url" content="{{SITE_URL}}/"><meta property="og:image" content="{{SITE_URL}}/assets/og.png">
   <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/png"><meta property="og:image:alt" content="{{name}} {{englishName}}, {{role}}, {{team}} 명함">
   <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{{name}} · {{englishName}}"><meta name="twitter:description" content="{{role}} · {{team}}"><meta name="twitter:image" content="{{SITE_URL}}/assets/og.png">
-  <meta name="theme-color" content="#f4f5ef"><link rel="icon" href="assets/favicon.png">
-  <script src="theme.js"></script><link rel="stylesheet" href="pip.css"><link rel="stylesheet" href="pip-ui.css"><link rel="stylesheet" href="styles.css"><script src="config.js" defer></script><script src="app.js" defer></script>
+  <meta name="theme-color" content="#f4f5ef">
+  <script id="pip-theme-bootstrap">
+(function () {
+  try {
+    var key = "namecard-theme";
+    var saved = null;
+    try {
+      saved = localStorage.getItem(key);
+    } catch (error) {}
+    var theme = saved === "light" || saved === "dark" ? saved : "";
+    var root = document.documentElement;
+    if (theme) root.setAttribute("data-theme", theme);
+    else root.removeAttribute("data-theme");
+    var dark =
+      theme === "dark" ||
+      (theme === "" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+    var color = dark ? "#0e0e0e" : "#f4f5ef";
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.setAttribute("name", "theme-color");
+      (document.head || root).appendChild(meta);
+    }
+    meta.setAttribute("content", color);
+  } catch (error) {}
+})();
+  </script>
+  <link rel="icon" href="assets/favicon.png"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180">
+  <link rel="stylesheet" href="pip.css"><link rel="stylesheet" href="pip-ui.css"><link rel="stylesheet" href="styles.css"><script src="config.js" defer></script><script src="app.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">본문으로 이동</a>
-<header><a class="wordmark" href="./" aria-label="{{name}} 명함 홈">WHITEKIWI <span>/ NAMECARD</span></a><div class="header-controls"><fieldset class="kiwi-segmented theme-switch"><legend class="kiwi-sr-only">화면 테마</legend><div class="kiwi-segmented__options"><label class="kiwi-segmented__option"><input class="kiwi-sr-only" type="radio" name="theme" data-theme-choice="auto" value="auto" checked><span class="kiwi-segmented__label">자동</span></label><label class="kiwi-segmented__option"><input class="kiwi-sr-only" type="radio" name="theme" data-theme-choice="light" value="light"><span class="kiwi-segmented__label">밝게</span></label><label class="kiwi-segmented__option"><input class="kiwi-sr-only" type="radio" name="theme" data-theme-choice="dark" value="dark"><span class="kiwi-segmented__label">어둡게</span></label></div></fieldset><button class="quiet" id="share-top">공유 <span aria-hidden="true">↗</span></button></div></header>
+<header><a class="wordmark" href="./" aria-label="{{name}} 명함 홈">WHITEKIWI <span>/ NAMECARD</span></a><div class="header-controls"><fieldset class="kiwi-segmented kiwi-theme">
+  <legend class="kiwi-sr-only">화면 테마</legend>
+  <div class="kiwi-segmented__options">
+    <label class="kiwi-segmented__option"><input class="kiwi-sr-only" type="radio" name="theme" value="auto" checked><span class="kiwi-segmented__label">자동</span></label>
+    <label class="kiwi-segmented__option"><input class="kiwi-sr-only" type="radio" name="theme" value="light"><span class="kiwi-segmented__label">밝게</span></label>
+    <label class="kiwi-segmented__option"><input class="kiwi-sr-only" type="radio" name="theme" value="dark"><span class="kiwi-segmented__label">어둡게</span></label>
+  </div>
+</fieldset><button class="quiet" id="share-top">공유 <span aria-hidden="true">↗</span></button></div></header>
 <main id="main">
  <section class="intro"><p class="eyebrow">01 / NICE TO MEET YOU</p><div class="intro-grid"><h1>{{name}}<span>{{englishName}}.</span></h1><div class="intro-detail"><p>{{role}}<br>{{team}}</p><span class="company">toss income</span></div></div></section>
  <section class="card-section" aria-label="명함 앞면과 뒷면">
@@ -31,4 +66,91 @@
 <dialog id="download-dialog" aria-labelledby="download-title"><div class="dialog-top"><h2 id="download-title">명함 다운로드</h2><button class="quiet" data-close="download-dialog" aria-label="다운로드 닫기">닫기 ×</button></div><p>선명한 PNG 이미지로 저장하세요.</p><div class="download-grid"><a href="assets/namecard-front.png" download="Jihoon-Jang-front.png" data-event="card_download" data-side="front"><img src="assets/namecard-front.png" alt="명함 앞면"><span>앞면 다운로드 ↓</span></a><a href="assets/namecard-back.png" download="Jihoon-Jang-back.png" data-event="card_download" data-side="back"><img src="assets/namecard-back.png" alt="명함 뒷면"><span>뒷면 다운로드 ↓</span></a></div></dialog>
 <div id="toast" role="status" aria-live="polite"></div>
 <noscript><p class="noscript">명함 뒷면은 <a href="assets/namecard-back.png">여기에서 볼 수 있어요.</a> 연락처 저장·전화·이메일은 그대로 이용할 수 있습니다.</p></noscript>
+<script>
+(function () {
+  try {
+    var key = "namecard-theme";
+    var root = document.documentElement;
+    function store() {
+      try {
+        return window.localStorage;
+      } catch (error) {
+        return null;
+      }
+    }
+    function read() {
+      var storage = store();
+      var saved = null;
+      try {
+        saved = storage ? storage.getItem(key) : null;
+      } catch (error) {}
+      if (saved === "light" || saved === "dark") return saved;
+      if (saved !== null && storage) {
+        try {
+          storage.removeItem(key);
+        } catch (error) {}
+      }
+      return "auto";
+    }
+    function colorFor(preference) {
+      var dark =
+        preference === "dark" ||
+        (preference === "auto" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches);
+      return dark ? "#0e0e0e" : "#f4f5ef";
+    }
+    function apply(preference) {
+      if (preference === "light" || preference === "dark") {
+        root.setAttribute("data-theme", preference);
+      } else root.removeAttribute("data-theme");
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (!meta) {
+        meta = document.createElement("meta");
+        meta.setAttribute("name", "theme-color");
+        (document.head || root).appendChild(meta);
+      }
+      meta.setAttribute("content", colorFor(preference));
+    }
+    function write(preference) {
+      var storage = store();
+      if (!storage) return;
+      try {
+        if (preference === "light" || preference === "dark") {
+          storage.setItem(key, preference);
+        } else storage.removeItem(key);
+      } catch (error) {}
+    }
+    function sync(preference) {
+      var inputs = document.querySelectorAll(".kiwi-theme input[type='radio']");
+      for (var index = 0; index < inputs.length; index += 1) {
+        inputs[index].checked = inputs[index].value === preference;
+      }
+    }
+    document.addEventListener("change", function (event) {
+      var input = event.target;
+      if (!input || !input.closest || !input.closest(".kiwi-theme")) return;
+      if (input.type !== "radio") return;
+      var value = input.value;
+      if (value !== "auto" && value !== "light" && value !== "dark") return;
+      write(value);
+      apply(value);
+      sync(value);
+    });
+    window.addEventListener("storage", function (event) {
+      if (event.key !== key) return;
+      var preference = read();
+      apply(preference);
+      sync(preference);
+    });
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", function () {
+        if (read() === "auto") apply("auto");
+      });
+    var initial = read();
+    apply(initial);
+    sync(initial);
+  } catch (error) {}
+})();
+</script>
 </body></html>
