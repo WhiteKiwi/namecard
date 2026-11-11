@@ -2,7 +2,7 @@
 
 | 자산 | 출처 · 범위 |
 | --- | --- |
-| PIP token/UI CSS | npm `@whitekiwi/tokens@0.2.4`, `@whitekiwi/ui@0.2.4`. MIT 고지를 `public/PIP-LICENSE.txt`에 보존하며 빌드에 포함합니다. 테마 아이콘·모션의 출처와 Apache-2.0 전문은 `public/PIP-THIRD-PARTY.md`, `public/PIP-LICENSE-APACHE-2.0`에 보존합니다. |
+| PIP token/UI CSS | npm `@whitekiwi/tokens@0.2.5`, `@whitekiwi/ui@0.2.5`. MIT 고지를 `public/PIP-LICENSE.txt`에 보존하며 빌드에 포함합니다. 테마 아이콘·모션의 출처와 Apache-2.0 전문은 `public/PIP-THIRD-PARTY.md`, `public/PIP-LICENSE-APACHE-2.0`에 보존합니다. |
 | Toss 심볼 | [공식 심볼 다운로드](https://static.toss.im/assets/homepage/brand/Toss_Symbol.zip). `public/assets/toss-symbol-tight.png`는 투명 여백을 정리한 자산입니다. |
 | Toss Income 로고 | [공식 계열사 다운로드](https://static.toss.im/assets/homepage/brand/2026-CI/TossIncome.zip). `public/assets/toss-income-tight.png`에 사용합니다. |
 | 명함 앞·뒷면 SVG/PNG | 소유자가 제공한 실물 명함을 바탕으로 재구성했습니다. 원본 사진은 포함하지 않습니다. 위 로고와 개인 연락처를 포함합니다. |

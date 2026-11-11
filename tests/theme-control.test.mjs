@@ -10,11 +10,11 @@ const pkg = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.ur
 const ui = JSON.parse(fs.readFileSync(new URL('../node_modules/@whitekiwi/ui/package.json', import.meta.url), 'utf8'));
 const tokens = JSON.parse(fs.readFileSync(new URL('../node_modules/@whitekiwi/tokens/package.json', import.meta.url), 'utf8'));
 
-test('ThemeControl 0.2.4 markup and bootstrap are embedded before CSS', () => {
-  assert.equal(pkg.devDependencies['@whitekiwi/ui'], '0.2.4');
-  assert.equal(pkg.devDependencies['@whitekiwi/tokens'], '0.2.4');
-  assert.equal(ui.version, '0.2.4');
-  assert.equal(tokens.version, '0.2.4');
+test('ThemeControl 0.2.5 markup and bootstrap are embedded before CSS', () => {
+  assert.equal(pkg.devDependencies['@whitekiwi/ui'], '0.2.5');
+  assert.equal(pkg.devDependencies['@whitekiwi/tokens'], '0.2.5');
+  assert.equal(ui.version, '0.2.5');
+  assert.equal(tokens.version, '0.2.5');
   assert.ok(html.includes(themeControlMarkup({ id: 'namecard-theme' })));
   assert.equal(html.match(/<script id="pip-theme-bootstrap">([\s\S]*?)<\/script>/)[1].trim(), pipThemeBootstrap('namecard-theme'));
   assert.ok(html.includes('class="kiwi-theme kiwi-theme--icon"'));
@@ -44,12 +44,6 @@ function boot({ stored = {}, prefersDark = false } = {}) {
     content: '#f4f5ef',
     setAttribute(name, value) { this[name] = value; },
   };
-  const inputs = ['auto', 'light', 'dark'].map((value) => ({
-    type: 'radio',
-    value,
-    checked: value === 'auto',
-    closest(selector) { return selector === '.kiwi-theme' ? true : null; },
-  }));
   const buttonAttrs = {};
   const button = {
     disabled: false,
@@ -68,7 +62,7 @@ function boot({ stored = {}, prefersDark = false } = {}) {
     },
     head: { appendChild() {} },
     querySelector(selector) { return selector === 'meta[name="theme-color"]' ? meta : null; },
-    querySelectorAll(selector) { return selector === 'button.kiwi-theme--icon' ? [button] : inputs; },
+    querySelectorAll(selector) { return selector === 'button.kiwi-theme--icon' ? [button] : []; },
     createElement() { return { setAttribute() {} }; },
     addEventListener(type, fn) { listeners[type] = fn; },
   };
@@ -82,29 +76,31 @@ function boot({ stored = {}, prefersDark = false } = {}) {
   const context = vm.createContext({ document, window, localStorage });
   vm.runInContext(pipThemeBootstrap('namecard-theme'), context);
   vm.runInContext(pipThemeControlScript('namecard-theme'), context);
-  return { map, writes, attrs, themeSets, meta, inputs, listeners, button, buttonAttrs,
+  return { map, writes, attrs, themeSets, meta, listeners, button, buttonAttrs,
     changeSystem(dark) { media.matches = dark; mediaChange(); },
   };
 }
 
-test('light and dark set data-theme; auto removes the attribute and the key', () => {
+test('icon selections set data-theme; clearing storage restores system preference', () => {
   const page = boot();
-  page.listeners.change({ target: page.inputs[1] });
-  assert.equal(page.attrs['data-theme'], 'light');
-  assert.equal(page.map.get('namecard-theme'), 'light');
-  assert.equal(page.meta.content, '#f4f5ef');
-  assert.equal(page.inputs[1].checked, true);
-  assert.equal(page.inputs[0].checked, false);
-
-  page.listeners.change({ target: page.inputs[2] });
+  page.listeners.click({ target: page.button });
   assert.equal(page.attrs['data-theme'], 'dark');
   assert.equal(page.map.get('namecard-theme'), 'dark');
   assert.equal(page.meta.content, '#0e0e0e');
 
-  page.listeners.change({ target: page.inputs[0] });
+  page.listeners.click({ target: page.button });
+  assert.equal(page.attrs['data-theme'], 'light');
+  assert.equal(page.map.get('namecard-theme'), 'light');
+  assert.equal(page.meta.content, '#f4f5ef');
+
+  // A different tab clears the explicit preference; the icon has no auto option.
+  page.map.delete('namecard-theme');
+  page.listeners.storage({ key: 'namecard-theme' });
   assert.equal('data-theme' in page.attrs, false);
   assert.equal(page.map.has('namecard-theme'), false);
-  assert.equal(page.inputs[0].checked, true);
+  assert.equal(page.buttonAttrs['data-resolved-theme'], 'light');
+  assert.equal(page.buttonAttrs['aria-label'], '어둡게 전환');
+  assert.equal(page.meta.content, '#f4f5ef');
   assert.ok(page.writes.every((entry) => entry[2] !== 'auto' && entry[2] !== 'system'));
   assert.ok(page.themeSets.every((entry) => entry[0] !== 'data-theme' || (entry[1] === 'light' || entry[1] === 'dark')));
 });
@@ -115,14 +111,14 @@ test('stored auto and system are deleted; an unrelated key is ignored', () => {
     assert.equal(page.map.has('namecard-theme'), false, legacy);
     assert.equal(page.map.get('theme'), 'dark');
     assert.equal('data-theme' in page.attrs, false);
-    assert.equal(page.inputs.find((input) => input.checked).value, 'auto');
+    assert.equal(page.buttonAttrs['data-resolved-theme'], 'light');
     assert.equal(page.meta.content, '#f4f5ef');
   }
   const kept = boot({ stored: { 'namecard-theme': 'light' }, prefersDark: true });
   assert.equal(kept.attrs['data-theme'], 'light');
   assert.equal(kept.map.get('namecard-theme'), 'light');
   assert.equal(kept.meta.content, '#f4f5ef');
-  assert.equal(kept.inputs.find((input) => input.checked).value, 'light');
+  assert.equal(kept.buttonAttrs['data-resolved-theme'], 'light');
 });
 
 test('auto follows prefers-color-scheme without a data-theme attribute', () => {
