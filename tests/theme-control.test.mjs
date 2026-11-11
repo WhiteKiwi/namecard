@@ -10,11 +10,11 @@ const pkg = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.ur
 const ui = JSON.parse(fs.readFileSync(new URL('../node_modules/@whitekiwi/ui/package.json', import.meta.url), 'utf8'));
 const tokens = JSON.parse(fs.readFileSync(new URL('../node_modules/@whitekiwi/tokens/package.json', import.meta.url), 'utf8'));
 
-test('ThemeControl 0.2.5 markup and bootstrap are embedded before CSS', () => {
-  assert.equal(pkg.devDependencies['@whitekiwi/ui'], '0.2.5');
-  assert.equal(pkg.devDependencies['@whitekiwi/tokens'], '0.2.5');
-  assert.equal(ui.version, '0.2.5');
-  assert.equal(tokens.version, '0.2.5');
+test('ThemeControl 0.2.6 markup and bootstrap are embedded before CSS', () => {
+  assert.equal(pkg.devDependencies['@whitekiwi/ui'], '0.2.6');
+  assert.equal(pkg.devDependencies['@whitekiwi/tokens'], '0.2.6');
+  assert.equal(ui.version, '0.2.6');
+  assert.equal(tokens.version, '0.2.6');
   assert.ok(html.includes(themeControlMarkup({ id: 'namecard-theme' })));
   assert.equal(html.match(/<script id="pip-theme-bootstrap">([\s\S]*?)<\/script>/)[1].trim(), pipThemeBootstrap('namecard-theme'));
   assert.ok(html.includes('class="kiwi-theme kiwi-theme--icon"'));
