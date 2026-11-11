@@ -80,7 +80,7 @@ tests/             입력 검증 · vCard 회귀 테스트
 ```
 
 브라우저에는 HTML/CSS/JavaScript와 PIP의 CSS만 전달합니다.
-`@whitekiwi/tokens`와 `@whitekiwi/ui`는 같은 **0.2.5** 버전의 CSS export를 사용하며 React JavaScript를 로드하지 않습니다. 화면 테마는 ThemeControl 기본 아이콘 버튼의 native markup과 `pip-theme-bootstrap`을 사용합니다.
+`@whitekiwi/tokens`와 `@whitekiwi/ui`는 같은 **0.2.6** 버전의 CSS export를 사용하며 React JavaScript를 로드하지 않습니다. 화면 테마는 ThemeControl 기본 아이콘 버튼의 native markup과 `pip-theme-bootstrap`을 사용합니다.
 테마 저장, 명함 상태, 연락처와 분석 이벤트는 이 앱에서 관리합니다.
 
 ## 콘텐츠와 분석

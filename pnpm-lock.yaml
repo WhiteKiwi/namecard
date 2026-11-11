@@ -9,11 +9,11 @@ importers:
   .:
     devDependencies:
       '@whitekiwi/tokens':
-        specifier: 0.2.5
-        version: 0.2.5
+        specifier: 0.2.6
+        version: 0.2.6
       '@whitekiwi/ui':
-        specifier: 0.2.5
-        version: 0.2.5(@whitekiwi/tokens@0.2.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: 0.2.6
+        version: 0.2.6(@whitekiwi/tokens@0.2.6)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
 
 packages:
 
@@ -122,13 +122,13 @@ packages:
       '@types/react':
         optional: true
 
-  '@whitekiwi/tokens@0.2.5':
-    resolution: {integrity: sha512-/JNN5BbFsh6pjT6GEcPcPXCColSSC1GrEOkC+y9PY+fd03GFqUYTVwXgDi66JE8aPYspQFP2stvlqV80b93DNg==}
+  '@whitekiwi/tokens@0.2.6':
+    resolution: {integrity: sha512-48y2Eon4/zoFjEdq95U+VGfwfNUuQH7zvsS5v5ue70W/Yx9Zi2eSbw+OZBl9q64uIPyKW1ixnUCtwsWX0C5ZdA==}
 
-  '@whitekiwi/ui@0.2.5':
-    resolution: {integrity: sha512-omDRM6IDJ7Zptpesie2pc8jLxpDik/PvnMnFe4dEf7WVEDx27z8J9AaGQ7jRlmwID6sM/YrXi5FK3lmPwSLvqQ==}
+  '@whitekiwi/ui@0.2.6':
+    resolution: {integrity: sha512-vHIiSUkCFm4G/0fXipfN9CAlZMgRouglbq+GgyX1zpI4EC5HfVJTuhrghSfH5LAo5BUo6uNAak44ZzFGFsRFrw==}
     peerDependencies:
-      '@whitekiwi/tokens': ^0.2.5
+      '@whitekiwi/tokens': ^0.2.6
       react: '>=19'
       react-dom: '>=19'
 
@@ -217,12 +217,12 @@ snapshots:
     dependencies:
       react: 19.3.1
 
-  '@whitekiwi/tokens@0.2.5': {}
+  '@whitekiwi/tokens@0.2.6': {}
 
-  '@whitekiwi/ui@0.2.5(@whitekiwi/tokens@0.2.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@whitekiwi/ui@0.2.6(@whitekiwi/tokens@0.2.6)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
       '@radix-ui/react-collapsible': 1.2.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      '@whitekiwi/tokens': 0.2.5
+      '@whitekiwi/tokens': 0.2.6
       class-variance-authority: 0.7.1
       clsx: 2.1.1
       react: 19.3.1
