@@ -66,7 +66,7 @@ GA 스트림의 **향상된 측정**은 끕니다. 자동 외부 링크·파일 
 ## UI 구성
 
 PIP의 CSS 토큰과 native radio 패턴을 사용합니다. 패키지 버전은 둘 다 맞춰 변경합니다.
-화면 테마는 `@whitekiwi/ui` 0.2.4 기본 아이콘 ThemeControl markup(`kiwi-theme kiwi-theme--icon`)과 공식 bootstrap/control script입니다. 버튼은 현재 테마와 반대인 밝게/어둡게 전환 동작을 표시합니다. 저장 키는 `namecard-theme`이며 `light`와 `dark`만 저장하고, 자동은 그 키를 삭제합니다. 같은 키에 남아 있던 `auto`·`system`도 삭제하며, 다른 키는 읽지 않습니다.
+화면 테마는 `@whitekiwi/ui` 0.2.5 기본 아이콘 ThemeControl markup(`kiwi-theme kiwi-theme--icon`)과 공식 bootstrap/control script입니다. 버튼은 현재 테마와 반대인 밝게/어둡게 전환 동작을 표시합니다. 저장 키는 `namecard-theme`이며 `light`와 `dark`만 저장하고, 자동은 그 키를 삭제합니다. 같은 키에 남아 있던 `auto`·`system`도 삭제하며, 다른 키는 읽지 않습니다.
 앞·뒷면 선택의 상태·포커스 스타일도 PIP에서 가져오고,
 카드 뒤집기·확대·분석 동작은 앱이 소유합니다.
 [PIP 설계 기준](https://github.com/WhiteKiwi/kiwi-design-system/blob/main/DESIGN.md)을 따릅니다.

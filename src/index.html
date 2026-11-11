@@ -144,26 +144,12 @@
         buttons[index].setAttribute("aria-label", label);
         buttons[index].setAttribute("title", label);
       }
-      var inputs = document.querySelectorAll(".kiwi-theme input[type='radio']");
-      for (var index = 0; index < inputs.length; index += 1) {
-        inputs[index].checked = inputs[index].value === preference;
-      }
     }
     document.addEventListener("click", function (event) {
       var target = event.target;
       var button = target && target.closest && target.closest("button.kiwi-theme--icon");
       if (!button || button.disabled) return;
       var value = button.getAttribute("data-resolved-theme") === "dark" ? "light" : "dark";
-      write(value);
-      apply(value);
-      sync(value);
-    });
-    document.addEventListener("change", function (event) {
-      var input = event.target;
-      if (!input || !input.closest || !input.closest(".kiwi-theme")) return;
-      if (input.type !== "radio") return;
-      var value = input.value;
-      if (value !== "auto" && value !== "light" && value !== "dark") return;
       write(value);
       apply(value);
       sync(value);

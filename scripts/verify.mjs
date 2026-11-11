@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import { pipThemeBootstrap, pipThemeControlScript, themeControlMarkup } from '@whitekiwi/ui/theme';
 const pkg = JSON.parse(await fs.readFile('package.json', 'utf8'));
 for (const name of ['tokens', 'ui']) {
-  assert.equal(pkg.devDependencies[`@whitekiwi/${name}`], '0.2.4');
-  assert.equal(JSON.parse(await fs.readFile(`node_modules/@whitekiwi/${name}/package.json`, 'utf8')).version, '0.2.4');
+  assert.equal(pkg.devDependencies[`@whitekiwi/${name}`], '0.2.5');
+  assert.equal(JSON.parse(await fs.readFile(`node_modules/@whitekiwi/${name}/package.json`, 'utf8')).version, '0.2.5');
 }
 const config = JSON.parse(await fs.readFile('config.json', 'utf8'));
 const html = await fs.readFile('dist/index.html', 'utf8');

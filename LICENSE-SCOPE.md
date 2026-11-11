@@ -17,6 +17,6 @@ granted. Replace personal content and obtain permission for excluded assets when
 reusing the application. See [asset provenance](docs/ASSETS.md).
 
 Third-party dependencies retain their own licenses. PIP's MIT notice is preserved
-in `public/PIP-LICENSE.txt` and copied into the static build. The PIP 0.2.4
+in `public/PIP-LICENSE.txt` and copied into the static build. The PIP 0.2.5
 theme icon and motion attribution and Apache-2.0 text are preserved in
 `public/PIP-THIRD-PARTY.md` and `public/PIP-LICENSE-APACHE-2.0`.

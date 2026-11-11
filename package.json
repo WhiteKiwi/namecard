@@ -13,8 +13,8 @@
     "release:pack": "node scripts/release.mjs"
   },
   "devDependencies": {
-    "@whitekiwi/tokens": "0.2.4",
-    "@whitekiwi/ui": "0.2.4"
+    "@whitekiwi/tokens": "0.2.5",
+    "@whitekiwi/ui": "0.2.5"
   },
   "license": "MIT"
 }
